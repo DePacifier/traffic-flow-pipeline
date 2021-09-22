@@ -136,95 +136,95 @@ if __name__ == "__main__":
 
     # sql.sql_query("SHOW DATABASES", func)
 
-    sql.sql_query("CREATE DATABASE IF NOT EXISTS traffic_flow_db")
+    # sql.sql_query("CREATE DATABASE IF NOT EXISTS traffic_flow_db")
 
-    sql.execute_query_on_db(
-        "DROP TABLE IF EXISTS traffic_flow", database='traffic_flow_db')
+    # sql.execute_query_on_db(
+    #     "DROP TABLE IF EXISTS traffic_flow", database='traffic_flow_db')
 
-    sql.execute_query_on_db(
-        "DROP TABLE IF EXISTS stations", database='traffic_flow_db')
+    # sql.execute_query_on_db(
+    #     "DROP TABLE IF EXISTS stations", database='traffic_flow_db')
 
-    create_stations_table_query = """
-        CREATE TABLE IF NOT EXISTS stations(
-            id INT PRIMARY KEY,
-            FWY INT,
-            direction VARCHAR(2),
-            district INT,
-            county INT,
-            city INT,
-            state_pm VARCHAR(10),
-            abs_pm FLOAT,
-            latitude FLOAT,
-            longitude FLOAT,
-            length FLOAT,
-            type VARCHAR(3),
-            lanes INT,
-            name VARCHAR(50),
-            user_id_1 VARCHAR(6),
-            user_id_2 VARCHAR(20),
-            user_id_3 INT,
-            user_id_4 INT
-        )
-    """
+    # create_stations_table_query = """
+    #     CREATE TABLE IF NOT EXISTS stations(
+    #         id INT PRIMARY KEY,
+    #         FWY INT,
+    #         direction VARCHAR(2),
+    #         district INT,
+    #         county INT,
+    #         city INT,
+    #         state_pm VARCHAR(10),
+    #         abs_pm FLOAT,
+    #         latitude FLOAT,
+    #         longitude FLOAT,
+    #         length FLOAT,
+    #         type VARCHAR(3),
+    #         lanes INT,
+    #         name VARCHAR(50),
+    #         user_id_1 VARCHAR(6),
+    #         user_id_2 VARCHAR(20),
+    #         user_id_3 INT,
+    #         user_id_4 INT
+    #     )
+    # """
 
-    sql.insert_table(
-        table_create_query=create_stations_table_query, database='traffic_flow_db')
+    # sql.insert_table(
+    #     table_create_query=create_stations_table_query, database='traffic_flow_db')
 
-    insert_stations_query = """
-        INSERT INTO stations
-        (id,FWY,direction,district,county,city,state_pm,abs_pm,latitude,
-        longitude,length,type,lanes,name,user_id_1,user_id_2,user_id_3,user_id_4)
-        VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s)
-        """
-    sql.insert_values(database='traffic_flow_db',
-                      insert_query=insert_stations_query, file_path='../data/I80_stations.csv')
+    # insert_stations_query = """
+    #     INSERT INTO stations
+    #     (id,FWY,direction,district,county,city,state_pm,abs_pm,latitude,
+    #     longitude,length,type,lanes,name,user_id_1,user_id_2,user_id_3,user_id_4)
+    #     VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s)
+    #     """
+    # sql.insert_values(database='traffic_flow_db',
+    #                   insert_query=insert_stations_query, file_path='../data/I80_stations.csv')
 
-    create_traffic_flow_table_query = """
-        CREATE TABLE IF NOT EXISTS traffic_flow(
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            source_id INT,
-            date DATE,
-            time TIME,
-            primary_link_source_flag FLOAT,
-            avg_speed FLOAT,
-            avg_flow FLOAT,
-            avg_occ FLOAT,
-            avg_freeflow_speed FLOAT,
-            avg_travel_time FLOAT,
-            samples_below_100pct_ff FLOAT,
-            samples_below_95pct_ff FLOAT,
-            samples_below_90pct_ff FLOAT,
-            samples_below_85pct_ff FLOAT,
-            samples_below_80pct_ff FLOAT,
-            samples_below_75pct_ff FLOAT,
-            samples_below_70pct_ff FLOAT,
-            samples_below_65pct_ff FLOAT,
-            samples_below_60pct_ff FLOAT,
-            samples_below_55pct_ff FLOAT,
-            samples_below_50pct_ff FLOAT,
-            samples_below_45pct_ff FLOAT,
-            samples_below_40pct_ff FLOAT,
-            samples_below_35pct_ff FLOAT,
-            samples_below_30pct_ff FLOAT,
-            samples_below_25pct_ff FLOAT,
-            samples_below_20pct_ff FLOAT,
-            samples_below_15pct_ff FLOAT,
-            FOREIGN KEY(source_id) REFERENCES stations(id)
-        )
-    """
+    # create_traffic_flow_table_query = """
+    #     CREATE TABLE IF NOT EXISTS traffic_flow(
+    #         id INT AUTO_INCREMENT PRIMARY KEY,
+    #         source_id INT,
+    #         date DATE,
+    #         time TIME,
+    #         primary_link_source_flag FLOAT,
+    #         avg_speed FLOAT,
+    #         avg_flow FLOAT,
+    #         avg_occ FLOAT,
+    #         avg_freeflow_speed FLOAT,
+    #         avg_travel_time FLOAT,
+    #         samples_below_100pct_ff FLOAT,
+    #         samples_below_95pct_ff FLOAT,
+    #         samples_below_90pct_ff FLOAT,
+    #         samples_below_85pct_ff FLOAT,
+    #         samples_below_80pct_ff FLOAT,
+    #         samples_below_75pct_ff FLOAT,
+    #         samples_below_70pct_ff FLOAT,
+    #         samples_below_65pct_ff FLOAT,
+    #         samples_below_60pct_ff FLOAT,
+    #         samples_below_55pct_ff FLOAT,
+    #         samples_below_50pct_ff FLOAT,
+    #         samples_below_45pct_ff FLOAT,
+    #         samples_below_40pct_ff FLOAT,
+    #         samples_below_35pct_ff FLOAT,
+    #         samples_below_30pct_ff FLOAT,
+    #         samples_below_25pct_ff FLOAT,
+    #         samples_below_20pct_ff FLOAT,
+    #         samples_below_15pct_ff FLOAT,
+    #         FOREIGN KEY(source_id) REFERENCES stations(id)
+    #     )
+    # """
 
-    sql.insert_table(
-        table_create_query=create_traffic_flow_table_query, database='traffic_flow_db')
+    # sql.insert_table(
+    #     table_create_query=create_traffic_flow_table_query, database='traffic_flow_db')
 
-    insert_traffic_flow_query = """
-        INSERT INTO traffic_flow
-        (source_id,date,time,primary_link_source_flag,avg_speed,avg_flow,avg_occ,avg_freeflow_speed,avg_travel_time,samples_below_100pct_ff,
-        samples_below_95pct_ff,samples_below_90pct_ff,samples_below_85pct_ff,samples_below_80pct_ff,
-        samples_below_75pct_ff,samples_below_70pct_ff,samples_below_65pct_ff,samples_below_60pct_ff,
-        samples_below_55pct_ff,samples_below_50pct_ff,samples_below_45pct_ff,samples_below_40pct_ff,
-        samples_below_35pct_ff,samples_below_30pct_ff,samples_below_25pct_ff,samples_below_20pct_ff,samples_below_15pct_ff)
-        VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s)
-        """
+    # insert_traffic_flow_query = """
+    #     INSERT INTO traffic_flow
+    #     (source_id,date,time,primary_link_source_flag,avg_speed,avg_flow,avg_occ,avg_freeflow_speed,avg_travel_time,samples_below_100pct_ff,
+    #     samples_below_95pct_ff,samples_below_90pct_ff,samples_below_85pct_ff,samples_below_80pct_ff,
+    #     samples_below_75pct_ff,samples_below_70pct_ff,samples_below_65pct_ff,samples_below_60pct_ff,
+    #     samples_below_55pct_ff,samples_below_50pct_ff,samples_below_45pct_ff,samples_below_40pct_ff,
+    #     samples_below_35pct_ff,samples_below_30pct_ff,samples_below_25pct_ff,samples_below_20pct_ff,samples_below_15pct_ff)
+    #     VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s)
+    #     """
 
-    sql.insert_values(database='traffic_flow_db',
-                      insert_query=insert_traffic_flow_query, file_path='../data/I80_davis.txt')
+    # sql.insert_values(database='traffic_flow_db',
+    #                   insert_query=insert_traffic_flow_query, file_path='../data/I80_davis.txt')
